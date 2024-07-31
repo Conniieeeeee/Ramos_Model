@@ -76,6 +76,18 @@ class StudentController extends Controller
      */
     public function store(Request $request)
     {
+        $request->validate([
+            'fname'     => 'required',
+            'lname'     => 'required',
+            'email'     => 'required',
+            'phone'     => 'required',
+            'address'   => 'required',
+            'city'      => 'required',
+            'province'  => 'required',
+            'zip'       => 'required',
+            'birthday'  => 'required|date',
+        ]);
+        
         $student = new Student();
         $student-> fname            = $request['fname'];
         $student-> lname            = $request['lname'];
@@ -88,7 +100,8 @@ class StudentController extends Controller
         $student-> birthday         = $request['birthday'];
         $student->save();
 
-        return redirect()->to('student');
+        // return redirect()->to('student');
+        return back()->with('success','Data save Successfully');
     }
 
     /**
